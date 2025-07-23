@@ -1,8 +1,32 @@
 import "reflect-metadata";
-import express, { Request, Response } from "express";
+import express from "express";
+import morgan from "morgan";
+import cors from 'cors';
 
-export const app = express();
+class Server {
+    public app: express.Application = express();
+    private PORT: number = Number(process.env.PORT) || 3000;
 
-app.get('/', (req: Request, res: Response)=>{
-    res.send('App funcionando correctamente');
-})
+    constructor(){
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({extended: true}));
+        this.app.use(cors());
+        this.app.use(morgan("dev"))
+
+        this.app.get("/api/hola", (_req, res)=>{
+            res.status(200).json({
+                message: "Hola Mundo!"
+            });
+        });
+
+        this.listen()
+    }
+
+    public listen(){
+        this.app.listen(this.PORT, ()=>{
+            console.log(`Server is listening on http:localhost:${this.PORT}`);
+        })
+    }
+}
+
+new Server();
