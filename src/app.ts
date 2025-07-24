@@ -2,8 +2,9 @@ import "reflect-metadata";
 import express from "express";
 import morgan from "morgan";
 import cors from 'cors';
+import { UserRouter } from "./router/user.router";
 
-class Server {
+class ServerBootstrap {
     public app: express.Application = express();
     private PORT: number = Number(process.env.PORT) || 3000;
 
@@ -13,13 +14,12 @@ class Server {
         this.app.use(cors());
         this.app.use(morgan("dev"))
 
-        this.app.get("/api/hola", (_req, res)=>{
-            res.status(200).json({
-                message: "Hola Mundo!"
-            });
-        });
-
+        this.app.use('/api', this.routers())
         this.listen()
+    }
+
+    routers(): Array<express.Router>{
+        return [new UserRouter().router];
     }
 
     public listen(){
@@ -29,4 +29,4 @@ class Server {
     }
 }
 
-new Server();
+new ServerBootstrap();
