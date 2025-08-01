@@ -4,19 +4,32 @@ import { BaseEntity } from "../config/base.entity";
 @Entity({name: "users"})
 export class UserEntity extends BaseEntity{
     
-    @Column({unique: true})
+    @Column({
+        unique: true,
+        length: 100,
+    })
     email: string;
 
-    @Column()
+    @Column({
+        length: 100,
+    })
     name: string;
 
-    @Column()
+    @Column({
+        length: 100,
+    })
     lastname: string;
 
-    @Column()
+    @Column({
+        length: 255,
+        select: false, // Prevents password from being selected by default
+    })
     password: string;
 
-    @Column({default: "empleado"})
+    @Column({
+        default: "empleado",
+        length: 20,
+    })
     role: string;
-
+    
 }
