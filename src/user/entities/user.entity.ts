@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
+import { StockMovementEntity } from "../../stock/entities/stockMovement.entity";
 
 @Entity({name: "users"})
 export class UserEntity extends BaseEntity{
@@ -31,5 +32,8 @@ export class UserEntity extends BaseEntity{
         length: 20,
     })
     role: string;
+
+    @OneToMany(()=> StockMovementEntity, (movement)=> movement.user)
+    movements: StockMovementEntity[];
     
 }
