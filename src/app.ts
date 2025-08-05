@@ -27,13 +27,7 @@ class ServerBootstrap extends ConfigServer{
     routers(): Array<express.Router>{
         return [new UserRouter().router];
     }
-
-    async dbConnect(): Promise<DataSource>{
-        return await new DataSource(this.typeORMConfig).initialize();
-    }
-
     
-
     public listen(){
         this.app.listen(this.port, ()=>{
             console.log(`Server is listening on http:localhost:${this.port}`);

@@ -1,7 +1,7 @@
 import { Check, Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { StockMovementEntity } from "../../stock/entities/stockMovement.entity";
-import { ProductCategoryEntity } from "../../custom/entities/products_categories.entity";
+import { ProductCategoryEntity } from "./products_categories.entity";
 
 @Check("CHK_STOCK_NON_NEGATIVE", "stock_quantity >= 0") // Ensures stock quantity cannot be negative
 @Check("CHK_PRICE_NON_NEGATIVE", " price >= 0") // Ensures price cannot be negative
