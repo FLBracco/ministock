@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { StockMovementEntity } from "../../stock/entities/stockMovement.entity";
+import { RoleType } from "../dto/user.dto";
 
 @Entity({name: "users"})
 export class UserEntity extends BaseEntity{
@@ -28,8 +29,10 @@ export class UserEntity extends BaseEntity{
     password: string;
 
     @Column({
-        default: "empleado",
-        length: 20,
+        type: "enum",
+        enum: RoleType,
+        default: RoleType.EMPLOYED,
+        nullable: false,
     })
     role: string;
 

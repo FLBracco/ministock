@@ -27,3 +27,8 @@ export class UserDTO extends BaseDTO{
     @IsString()
     role: string;
 }
+
+export enum RoleType {
+    EMPLOYED = "EMPLOYED",
+    ADMIN = "ADMIN",
+}

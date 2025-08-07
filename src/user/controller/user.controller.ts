@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { HttpResponse } from "../../shared/response/http.response";
+import { UpdateResult } from "typeorm";
+import { DeleteResult } from "typeorm/browser";
 
 export class UserController {
     constructor(
         private readonly userService: UserService = new UserService(),
         private readonly httpResponse: HttpResponse = new HttpResponse()
     ){}
-    
+
     async getUsers(_req: Request, res: Response){
         try {
             const data = await this.userService.findAllUsers();
@@ -39,7 +41,10 @@ export class UserController {
     async updateUser(req: Request, res: Response){
         try {
             const { id } = req.params
-            const data = await this.userService.updateUser(Number(id), req.body);
+            const data: UpdateResult = await this.userService.updateUser(Number(id), req.body);
+            if (data.affected === 0){
+                return this.httpResponse.NotFound(res, "User not found");
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);
@@ -49,7 +54,10 @@ export class UserController {
     async deleteUser(req: Request, res: Response){
         try {
             const { id } = req.params
-            const data = await this.userService.deleteUser(Number(id));
+            const data: DeleteResult = await this.userService.deleteUser(Number(id));
+            if (data.affected === 0){
+                return this.httpResponse.NotFound(res, "User not found");
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);
