@@ -6,6 +6,7 @@ import { UserRouter } from "./user/user.router";
 import { ConfigServer } from "./config/config";
 import { ProductRouter } from "./products/products.router";
 import { CategoryRouter } from "./categories/categories.router";
+import { DataSource } from "typeorm";
 
 class ServerBootstrap extends ConfigServer{
     public app: express.Application = express();
@@ -31,6 +32,14 @@ class ServerBootstrap extends ConfigServer{
             new ProductRouter().router,
             new CategoryRouter().router,
         ];
+    }
+
+    async dbConnect(): Promise<DataSource | void>{
+        return this.initConnect.then(()=>{
+            console.log("Database connected successfully");
+        }).catch((e)=>{
+            console.error(e);
+        })
     }
     
     public listen(){
