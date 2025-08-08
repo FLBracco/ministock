@@ -32,7 +32,6 @@ export class UserEntity extends BaseEntity{
         type: "enum",
         enum: RoleType,
         default: RoleType.EMPLOYED,
-        nullable: false,
     })
     role: string;
 
