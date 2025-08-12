@@ -7,6 +7,7 @@ import { ConfigServer } from "./config/config";
 import { ProductRouter } from "./products/products.router";
 import { CategoryRouter } from "./categories/categories.router";
 import { DataSource } from "typeorm";
+import { StockMovementsRouter } from "./stock/stock_movements.router";
 
 class ServerBootstrap extends ConfigServer{
     public app: express.Application = express();
@@ -31,6 +32,7 @@ class ServerBootstrap extends ConfigServer{
             new UserRouter().router,
             new ProductRouter().router,
             new CategoryRouter().router,
+            new StockMovementsRouter().router,
         ];
     }
 

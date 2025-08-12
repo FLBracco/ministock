@@ -1,8 +1,20 @@
-import { IsInt, IsNotEmpty, IsString, Length, Min } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional, IsString, Length, Min } from "class-validator";
 import { BaseDTO } from "../../config/base.dto";
+import { ProductEntity } from "../../products/entities/products.entity";
+import { UserEntity } from "../../user/entities/user.entity";
 
 export class StockMovementDTO extends BaseDTO{
     
+    @IsOptional()
+    @IsInt()
+    @Min(1)
+    product: ProductEntity;
+    
+    @IsOptional()
+    @IsInt()
+    @Min(1)
+    user: UserEntity;
+
     @IsNotEmpty()
     @IsString()
     @Length(1, 10)
