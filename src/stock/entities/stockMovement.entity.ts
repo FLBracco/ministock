@@ -10,19 +10,19 @@ export class StockMovementEntity extends BaseEntity{
     
     @ManyToOne(()=> UserEntity, (user)=> user.movements)
     @JoinColumn({name: "user_id"})
-    user: UserEntity;
+    user!: UserEntity;
 
     @ManyToOne(()=> ProductEntity, (product)=> product.movements)
     @JoinColumn({name: "product_id"})
-    product: ProductEntity;
+    product!: ProductEntity;
 
     @Column({
         length: 10
     })
-    type: string;
+    type!: string;
 
     @Column({
         type: "int",
     })
-    quantity: number;
+    quantity!: number;
 }

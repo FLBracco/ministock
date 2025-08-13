@@ -1,7 +1,7 @@
 import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Length, Max, Min } from "class-validator";
 import { BaseDTO } from "../../config/base.dto";
 
-export class ProductsDTO extends BaseDTO{
+export class ProductsDTO extends BaseDTO {
 
     @IsNotEmpty()
     @IsString()
@@ -10,7 +10,7 @@ export class ProductsDTO extends BaseDTO{
     
     @IsOptional()
     @IsString()    
-    description: string;
+    description?: string;
     
     @IsNumber({maxDecimalPlaces: 2}, {message: "Price must have at most 2 decimal places"})
     @Min(0, {message: "Price must be at least 0"})

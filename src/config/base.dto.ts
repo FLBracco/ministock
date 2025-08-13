@@ -5,11 +5,11 @@ export class BaseDTO {
     @IsOptional()
     @IsInt()
     @Min(1)
-    id: number;
+    id?: number;
     
     @IsOptional()
-    createdAt: Date;
+    createdAt?: Date;
     
     @IsOptional()
-    updatedAt: Date;
+    updatedAt?: Date;
 }

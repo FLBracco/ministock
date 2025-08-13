@@ -6,14 +6,10 @@ import { UserEntity } from "../../user/entities/user.entity";
 export class StockMovementDTO extends BaseDTO{
     
     @IsOptional()
-    @IsInt()
-    @Min(1)
-    product: ProductEntity;
+    product?: ProductEntity;
     
     @IsOptional()
-    @IsInt()
-    @Min(1)
-    user: UserEntity;
+    user?: UserEntity;
 
     @IsNotEmpty()
     @IsString()
