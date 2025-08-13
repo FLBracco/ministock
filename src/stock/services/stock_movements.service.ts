@@ -4,7 +4,6 @@ import { StockMovementDTO, StockMovementType } from "../dto/stock_movements.dto"
 import { StockMovementEntity } from "../entities/stockMovement.entity";
 import { ProductsService } from "../../products/services/products.service";
 import { ProductsDTO } from "../../products/dto/products.dto";
-import { ProductEntity } from "../../products/entities/products.entity";
 
 export class StockMovementService extends BaseService<StockMovementEntity>{
     constructor(
@@ -19,11 +18,8 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
     async createMovements(body: StockMovementDTO): Promise<StockMovementEntity> {
         
         const productID = body.product;
-
         const newSM = (await this.execRepository).create(body);
-        console.log(newSM.product.id);
         const product = await this.productService.findProductByID(Number(productID));
-        console.log(product);
         
         if(!product) throw new Error('Product not found');
         
