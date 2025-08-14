@@ -13,11 +13,13 @@ export class ProductsCategoriesService extends BaseService<ProductCategoryEntity
     }
 
     async findAllProductsByCategory(categoryID: number): Promise<ProductCategoryEntity[]>{
-        return (await this.execRepository)
-            .createQueryBuilder("category")
-            .leftJoinAndSelect("category.product", "products")
-            .where("category.id = :categoryID", {categoryID})
+        
+        const productsByCategory = (await this.execRepository)
+            .createQueryBuilder("pc")
+            .leftJoinAndSelect("pc.product", "pcProducts")
+            .where("pc.category = :categoryID", {categoryID})
             .getMany()
+        return productsByCategory
     }
 
     async createCategoriesProducts(body: ProductCategoryEntity[]): Promise<ProductCategoryEntity[]> {
