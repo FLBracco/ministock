@@ -8,5 +8,6 @@ export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesContr
 
     routes(): void {
         this.router.get("/categories/:id/products", (req, res) => this.controller.getProductsByCategory(req, res));
+        this.router.post("/categories-products", (req, res) => this.controller.postCategoriesProducts(req, res));
     }
 }

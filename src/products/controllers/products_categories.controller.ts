@@ -15,4 +15,13 @@ export class ProductsCategoriesController {
            console.error(e); 
         }
     }
+
+    async postCategoriesProducts(req: Request, res: Response){
+        try {
+            const data = await this.productsCategoriesService.createCategoriesProducts(req.body);
+            res.status(201).json(data);
+        }catch(e) {
+            console.error(e);    
+        }
+    }
 }
