@@ -6,6 +6,15 @@ export class ProductsCategoriesController {
         private readonly productsCategoriesService: ProductsCategoriesService = new ProductsCategoriesService()
     ){}
 
+    async getProductsCategories(req: Request, res:Response){
+        try {
+            const data = await this.productsCategoriesService.findAllProductsCategories();
+            res.status(200).json(data);
+        }catch(e){
+           console.error(e); 
+        }
+    }
+
     async getProductsByCategory(req: Request, res: Response){
         try{
             const { id } = req.params;
@@ -19,6 +28,16 @@ export class ProductsCategoriesController {
     async postCategoriesProducts(req: Request, res: Response){
         try {
             const data = await this.productsCategoriesService.createCategoriesProducts(req.body);
+            res.status(201).json(data);
+        }catch(e) {
+            console.error(e);    
+        }
+    }
+
+    async deleteCategoriesProducts(req: Request, res: Response){
+        try {
+            const { id } = req.params
+            const data = await this.productsCategoriesService.deleteCategoriesProducts(Number(id));
             res.status(201).json(data);
         }catch(e) {
             console.error(e);    

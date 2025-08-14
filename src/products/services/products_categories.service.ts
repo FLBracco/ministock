@@ -1,4 +1,4 @@
-import { In } from "typeorm";
+import { DeleteResult, In } from "typeorm";
 import { CategoryService } from "../../categories/services/categories.service";
 import { BaseService } from "../../config/base.service";
 import { ProductCategoryEntity } from "../entities/products_categories.entity";
@@ -12,6 +12,12 @@ export class ProductsCategoriesService extends BaseService<ProductCategoryEntity
         super(ProductCategoryEntity)
     }
 
+    async findAllProductsCategories(): Promise<ProductCategoryEntity[]>{
+        return (await this.execRepository).find({
+            relations: ["product", "category"],
+        });
+    }
+
     async findAllProductsByCategory(categoryID: number): Promise<ProductCategoryEntity[]>{
         
         const productsByCategory = (await this.execRepository)
@@ -21,7 +27,7 @@ export class ProductsCategoriesService extends BaseService<ProductCategoryEntity
             .getMany()
         return productsByCategory
     }
-
+    
     async createCategoriesProducts(body: ProductCategoryEntity[]): Promise<ProductCategoryEntity[]> {
         const productsID = [... new Set(body.map(r => r.product))];
         const categoriesID = [... new Set(body.map(r => r.category))];
@@ -33,5 +39,9 @@ export class ProductsCategoriesService extends BaseService<ProductCategoryEntity
             throw new Error('Products or Categories Not Found');
         }
         return (await this.execRepository).save(body);
+    }
+
+    async deleteCategoriesProducts(id: number): Promise<DeleteResult>{
+        return (await this.execRepository).delete({id});
     }
 }
