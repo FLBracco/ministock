@@ -10,6 +10,7 @@ export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesContr
         this.router.get("/categories-products", (req, res) => this.controller.getProductsCategories(req, res));
         this.router.get("/categories/:id/products", (req, res) => this.controller.getProductsByCategory(req, res));
         this.router.post("/categories-products", (req, res) => this.controller.postCategoriesProducts(req, res));
+        this.router.put("/product-category/:id", (req, res) => this.controller.putProductCategory(req, res));
         this.router.delete("/categories-products/:id", (req, res) => this.controller.deleteCategoriesProducts(req, res));
     }
 }

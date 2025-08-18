@@ -34,6 +34,16 @@ export class ProductsCategoriesController {
         }
     }
 
+    async putProductCategory(req: Request, res: Response){
+        try {
+            const { id } = req.params
+            const data = await this.productsCategoriesService.updateProductCategory(Number(id), req.body);
+            res.status(201).json(data);
+        }catch(e){
+            console.error(e);
+        }
+    }
+
     async deleteCategoriesProducts(req: Request, res: Response){
         try {
             const { id } = req.params
