@@ -1,15 +1,15 @@
 import { IsOptional } from "class-validator";
 import { BaseDTO } from "../../config/base.dto";
-import { ProductsDTO } from "./products.dto";
-import { CategoryDTO } from "../../categories/dto/categories.dto";
+import { ProductEntity } from "../entities/products.entity";
+import { CategoryEntity } from "../../categories/entities/categories.entity";
 
 export class ProductsCategoriesDTO extends BaseDTO{
     
     @IsOptional()
-    product?: ProductsDTO;
+    product?: ProductEntity;
 
 
     @IsOptional()
-    category?: CategoryDTO;
+    category?: CategoryEntity;
 
 }
