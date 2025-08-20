@@ -8,11 +8,16 @@ import { ProductEntity } from "../../products/entities/products.entity";
 @Entity({name: "stock_movements"})
 export class StockMovementEntity extends BaseEntity{
     
-    @ManyToOne(()=> UserEntity, (user)=> user.movements)
+    @ManyToOne(()=> UserEntity, (user)=> user.movements, {
+        nullable: true,
+        onDelete: 'SET NULL',
+    })
     @JoinColumn({name: "user_id"})
-    user!: UserEntity;
+    user?: UserEntity;
 
-    @ManyToOne(()=> ProductEntity, (product)=> product.movements)
+    @ManyToOne(()=> ProductEntity, (product)=> product.movements, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({name: "product_id"})
     product!: ProductEntity;
 

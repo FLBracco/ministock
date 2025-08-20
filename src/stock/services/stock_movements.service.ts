@@ -13,7 +13,9 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
     }
 
     async findAllMovements(): Promise<StockMovementEntity[]> {
-        return (await this.execRepository).find();
+        return (await this.execRepository).find({
+            relations: ["user", "product"],
+        });
     }
     async createMovements(body: StockMovementDTO): Promise<StockMovementEntity> {
         
@@ -45,5 +47,4 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
     async deleteMovement(id: number): Promise<DeleteResult> {
         return (await this.execRepository).delete(id);
     }
-
 }
