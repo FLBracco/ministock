@@ -6,6 +6,7 @@ import { ProductsService } from "../../products/services/products.service";
 import { ProductsDTO } from "../../products/dto/products.dto";
 
 export class StockMovementService extends BaseService<StockMovementEntity>{
+    
     constructor(
         private readonly productService: ProductsService = new ProductsService,
     ){
@@ -17,8 +18,15 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
             relations: ["user", "product"],
         });
     }
+
+    async findSMByID(stockID: number): Promise<StockMovementEntity | null>{
+        return (await this.execRepository).findOne({
+            where: {id: stockID}, 
+            relations: ["user", "product"]
+        });
+    }
+
     async createMovements(body: StockMovementDTO): Promise<StockMovementEntity> {
-        
         const productID = body.product;
         const newSM = (await this.execRepository).create(body);
         const product = await this.productService.findProductByID(Number(productID));
@@ -41,10 +49,5 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
         await this.productService.updateProduct(product.id, productUpdate);
         return (await this.execRepository).save(newSM);
     }
-    async updateMovement(id: number, infoUpdate: StockMovementDTO): Promise<UpdateResult>{
-        return (await this.execRepository).update(id, infoUpdate)
-    }
-    async deleteMovement(id: number): Promise<DeleteResult> {
-        return (await this.execRepository).delete(id);
-    }
+
 }

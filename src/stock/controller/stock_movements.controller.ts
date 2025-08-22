@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { StockMovementService } from "../services/stock_movements.service";
 
 export class StockMovementsController {
+    
     constructor(
         private readonly stockMovementService: StockMovementService = new StockMovementService(),
     ){}
@@ -15,6 +16,16 @@ export class StockMovementsController {
         }
     }
 
+    async getMovementByID(req: Request, res: Response){
+        try {
+            const { id } = req.params
+            const data = await this.stockMovementService.findSMByID(Number(id))
+            return res.status(200).json(data);
+        }catch(e){
+            console.error(e);
+        }
+    }
+
     async createMovement(req: Request, res: Response){
         try {
             const data = await this.stockMovementService.createMovements(req.body);
@@ -22,23 +33,6 @@ export class StockMovementsController {
         }catch(e) {
             console.error(e);
         }
-    }
-    async updateMovement(req: Request, res: Response){
-        try {
-            const { id } = req.params
-            const data = await this.stockMovementService.updateMovement(Number(id), req.body);
-            return res.status(200).json(data);
-        }catch(e) {
-            console.error(e);
-        }
-    }
-    async deleteMovement(req: Request, res: Response){
-        try {
-            const { id } = req.params
-            const data = await this.stockMovementService.deleteMovement(Number(id));
-            return res.status(200).json(data);
-        }catch(e) {
-            console.error(e);
-        }
-    }    
+    }  
+    
 }
