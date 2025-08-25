@@ -1,4 +1,3 @@
-import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
 import { StockMovementDTO, StockMovementType } from "../dto/stock_movements.dto";
 import { StockMovementEntity } from "../entities/stockMovement.entity";
