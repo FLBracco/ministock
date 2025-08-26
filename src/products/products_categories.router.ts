@@ -1,15 +1,20 @@
 import { BaseRouter } from "../shared/router/router";
 import { ProductsCategoriesController } from "./controllers/products_categories.controller";
+import { ProductsCategoriesMiddleware } from "./middlewares/products_categories.middleware";
 
-export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesController> {
+export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesController, ProductsCategoriesMiddleware> {
     constructor(){
-        super(ProductsCategoriesController)
+        super(ProductsCategoriesController, ProductsCategoriesMiddleware)
     }
 
     routes(): void {
         this.router.get("/categories-products", (req, res) => this.controller.getProductsCategories(req, res));
         this.router.get("/categories/:id/products", (req, res) => this.controller.getProductsByCategory(req, res));
-        this.router.post("/categories-products", (req, res) => this.controller.postCategoriesProducts(req, res));
+        this.router.post(
+            "/categories-products",
+            (req, res, next) => [this.middleware.prodCategoriesValidator(req, res, next)],
+            (req, res) => this.controller.postCategoriesProducts(req, res)
+        );
         this.router.put("/product-category/:id", (req, res) => this.controller.putProductCategory(req, res));
         this.router.delete("/categories-products/:id", (req, res) => this.controller.deleteCategoriesProducts(req, res));
     }
