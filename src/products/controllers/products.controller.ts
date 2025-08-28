@@ -1,54 +1,63 @@
 import { Request, Response } from "express";
 import { ProductsService } from "../services/products.service";
+import { HttpResponse } from "../../shared/response/http.response";
 
 export class ProductsController {
-    constructor(private readonly productService: ProductsService = new ProductsService()){}
+    constructor(
+        private readonly productService: ProductsService = new ProductsService(),
+        private readonly httpResponse: HttpResponse = new HttpResponse(),        
+    ){}
     
     async getProducts(_req: Request, res: Response){
         try {
             const data = await this.productService.findAllProducts();
-            res.status(200).json(data);
+            return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);
+            return this.httpResponse.Error(res, e);
         }
     }
-
+    
     async getProductByID(req: Request, res: Response){
         try {
             const { id } = req.params
             const data = await this.productService.findProductByID(Number(id));
-            res.status(200).json(data);
+            return this.httpResponse.Ok(res, data);
         } catch (e) {
             console.error(e)
+            return this.httpResponse.Error(res, e);
         }
     }
-
+    
     async createProduct(req: Request, res: Response){
         try {
             const data = await this.productService.createProduct(req.body);
-            res.status(201).json(data);
+            return this.httpResponse.Created(res, data);
         } catch (e) {
             console.error(e)
+            return this.httpResponse.Error(res, e);
         }
     }
-
+    
     async updateProduct(req: Request, res: Response){
         try {
             const { id } = req.params
             const data = await this.productService.updateProduct(Number(id), req.body);
-            res.status(200).json(data);
+            return this.httpResponse.Ok(res, data);
         } catch (e) {
             console.error(e)
+            return this.httpResponse.Error(res, e);
         }
     }
-
+    
     async deleteProduct(req: Request, res: Response){
         try {
             const { id } = req.params
             const data = await this.productService.deleteProduct(Number(id));
-            res.status(200).json(data);
+            return this.httpResponse.Ok(res, data);
         } catch (e) {
-            console.error(e)
+            console.error(e);
+            return this.httpResponse.Error(res, e);
         }
     }
 

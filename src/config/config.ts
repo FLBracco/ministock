@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { AppDataSource } from './data.source';
 
 export abstract class ConfigServer {

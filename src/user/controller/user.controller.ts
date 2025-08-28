@@ -7,7 +7,7 @@ import { DeleteResult } from "typeorm/browser";
 export class UserController {
     constructor(
         private readonly userService: UserService = new UserService(),
-        private readonly httpResponse: HttpResponse = new HttpResponse()
+        private readonly httpResponse: HttpResponse = new HttpResponse(),
     ){}
 
     async getUsers(_req: Request, res: Response){
