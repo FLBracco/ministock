@@ -21,6 +21,9 @@ export class CategoryController {
         try {
             const { id } = req.params;
             const data = await this.categoryService.findCategoryByID(Number(id));
+            if(!data){
+                return this.httpResponse.NotFound(res, 'Category not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);
@@ -40,6 +43,9 @@ export class CategoryController {
         try {
             const { id } = req.params
             const data = await this.categoryService.updateCategory(Number(id), req.body);
+            if(data.affected === 0){
+                return this.httpResponse.NotFound(res, "Category not found!");
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);   
@@ -50,6 +56,9 @@ export class CategoryController {
         try {
             const { id } = req.params;
             const data = await this.categoryService.deleteCategory(Number(id));
+            if(data.affected === 0){
+                return this.httpResponse.NotFound(res, "Category not found!");
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);   

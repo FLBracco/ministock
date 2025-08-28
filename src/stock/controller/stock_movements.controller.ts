@@ -24,6 +24,9 @@ export class StockMovementsController {
         try {
             const { id } = req.params
             const data = await this.stockMovementService.findSMByID(Number(id))
+            if(!data){
+                return this.httpResponse.NotFound(res, 'Stock Movement not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e){
             console.error(e);
@@ -35,9 +38,15 @@ export class StockMovementsController {
         try {
             const data = await this.stockMovementService.createMovements(req.body);
             return this.httpResponse.Created(res, data);
-        }catch(e) {
+        }catch(e: any){
             console.error(e);
-            return this.httpResponse.Error(res, e);
+            if(e.message === "Product not found"){
+                return this.httpResponse.NotFound(res, e.message);
+            }
+            if(e.message === "Insufficient stock for this operation"){
+                return this.httpResponse.BadRequest(res, e.message);
+            }
+            return this.httpResponse.Error(res, e.message);
         }
     }  
     

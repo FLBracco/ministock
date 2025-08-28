@@ -23,6 +23,9 @@ export class UserController {
         try {
             const { id } = req.params
             const data = await this.userService.findUserByID(Number(id));
+            if(!data){
+                return this.httpResponse.NotFound(res, 'User not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);

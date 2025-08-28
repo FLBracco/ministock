@@ -2,9 +2,12 @@ import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
 import { CategoryDTO } from "../dto/categories.dto";
 import { CategoryEntity } from "../entities/categories.entity";
+import { HttpResponse } from "../../shared/response/http.response";
 
 export class CategoryService extends BaseService<CategoryEntity>{
-    constructor(){
+    constructor(
+        private readonly httpResponse: HttpResponse = new HttpResponse(),
+    ){
         super(CategoryEntity)
     }
     

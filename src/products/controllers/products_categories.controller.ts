@@ -22,6 +22,9 @@ export class ProductsCategoriesController {
         try{
             const { id } = req.params;
             const data = await this.productsCategoriesService.findAllProductsByCategory(Number(id));
+            if(!data){
+                return this.httpResponse.NotFound(res, 'Category not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e){
             console.error(e); 
@@ -43,6 +46,9 @@ export class ProductsCategoriesController {
         try {
             const { id } = req.params
             const data = await this.productsCategoriesService.updateProductCategory(Number(id), req.body);
+            if(data.affected === 0){
+                return this.httpResponse.NotFound(res, 'Product-Category relation not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e){
             console.error(e);
@@ -54,6 +60,9 @@ export class ProductsCategoriesController {
         try {
             const { id } = req.params
             const data = await this.productsCategoriesService.deleteCategoriesProducts(Number(id));
+            if(data.affected === 0){
+                return this.httpResponse.NotFound(res, 'Product-Category relation not found!');
+            }
             return this.httpResponse.Ok(res, data);
         }catch(e) {
             console.error(e);    
