@@ -33,7 +33,7 @@ export class UserEntity extends BaseEntity{
         enum: RoleType,
         default: RoleType.EMPLOYED,
     })
-    role: string;
+    role: RoleType;
 
     @OneToMany(()=> StockMovementEntity, (movement)=> movement.user)
     movements: StockMovementEntity[];

@@ -1,6 +1,6 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
-import { UserDTO } from "../dto/user.dto";
+import { RoleType, UserDTO } from "../dto/user.dto";
 import { UserEntity } from "../entities/user.entity";
 import * as bcrypt from "bcryptjs"
 
@@ -21,6 +21,15 @@ export class UserService extends BaseService<UserEntity> {
             .addSelect("user.password")
             .where({email})
             .getOne();
+    }
+    async findUserWithRole(id: number, role:RoleType): Promise<UserEntity | null>{
+        const user = (await this.execRepository)
+            .createQueryBuilder("user")
+            .where({ id })
+            .andWhere({ role })
+            .getOne();
+            
+        return user;
     }
     async createUser(body: UserDTO): Promise<UserEntity> {
         const newUser = (await this.execRepository).create(body);

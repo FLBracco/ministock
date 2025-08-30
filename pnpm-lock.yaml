@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@types/cors':
-        specifier: ^2.8.19
+        specifier: 2.8.19
         version: 2.8.19
       bcryptjs:
         specifier: 3.0.2
         version: 3.0.2
       class-transformer:
-        specifier: ^0.5.1
+        specifier: 0.5.1
         version: 0.5.1
       class-validator:
-        specifier: ^0.14.2
+        specifier: 0.14.2
         version: 0.14.2
       cookie-parser:
         specifier: 1.4.7
@@ -36,7 +36,7 @@ importers:
         specifier: 9.0.2
         version: 9.0.2
       morgan:
-        specifier: ^1.10.1
+        specifier: 1.10.1
         version: 1.10.1
       pg:
         specifier: 8.16.3
@@ -48,7 +48,7 @@ importers:
         specifier: 0.3.25
         version: 0.3.25(pg@8.16.3)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
       typeorm-naming-strategies:
-        specifier: ^4.1.0
+        specifier: 4.1.0
         version: 4.1.0(typeorm@0.3.25(pg@8.16.3)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)))
       zod:
         specifier: 4.0.5
@@ -57,17 +57,20 @@ importers:
       '@types/express':
         specifier: 5.0.3
         version: 5.0.3
+      '@types/jsonwebtoken':
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/morgan':
-        specifier: ^1.9.10
+        specifier: 1.9.10
         version: 1.9.10
       '@types/node':
         specifier: 24.0.14
         version: 24.0.14
       concurrently:
-        specifier: ^9.2.0
+        specifier: 9.2.0
         version: 9.2.0
       ts-node:
-        specifier: ^10.9.2
+        specifier: 10.9.2
         version: 10.9.2(@types/node@24.0.14)(typescript@5.8.3)
       ts-node-dev:
         specifier: 2.0.0
@@ -133,11 +136,17 @@ packages:
   '@types/http-errors@2.0.5':
     resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
 
+  '@types/jsonwebtoken@9.0.10':
+    resolution: {integrity: sha512-asx5hIG9Qmf/1oStypjanR7iKTv0gXQ1Ov/jfrX6kS/EO0OFni8orbmGCn0672NHR3kXHwpAwR+B368ZGN/2rA==}
+
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
   '@types/morgan@1.9.10':
     resolution: {integrity: sha512-sS4A1zheMvsADRVfT0lYbJ4S9lmsey8Zo2F7cnbYjWHP67Q0AwMYuuzLlkIM2N8gAbb9cubhIVFwcIN2XyYCkA==}
+
+  '@types/ms@2.1.0':
+    resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
   '@types/node@24.0.14':
     resolution: {integrity: sha512-4zXMWD91vBLGRtHK3YbIoFMia+1nqEz72coM42C5ETjnNCa/heoj7NT1G67iAfOqMmcfhuCZ4uNpyz8EjlAejw==}
@@ -1214,11 +1223,18 @@ snapshots:
 
   '@types/http-errors@2.0.5': {}
 
+  '@types/jsonwebtoken@9.0.10':
+    dependencies:
+      '@types/ms': 2.1.0
+      '@types/node': 24.0.14
+
   '@types/mime@1.3.5': {}
 
   '@types/morgan@1.9.10':
     dependencies:
       '@types/node': 24.0.14
+
+  '@types/ms@2.1.0': {}
 
   '@types/node@24.0.14':
     dependencies:
