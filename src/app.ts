@@ -9,6 +9,8 @@ import { CategoryRouter } from "./categories/categories.router";
 import { DataSource } from "typeorm";
 import { StockMovementsRouter } from "./stock/stock_movements.router";
 import { ProductsCategoriesRouter } from "./products/products_categories.router";
+import { LoginStrategy } from "./auth/strategies/login.strategy";
+import { JwtStrategy } from "./auth/strategies/jwt.strategy";
 
 class ServerBootstrap extends ConfigServer{
     public app: express.Application = express();
@@ -18,7 +20,7 @@ class ServerBootstrap extends ConfigServer{
         super();
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: true}));
-
+        this.passportUse();
         this.dbConnect();
         
         this.app.use(cors());
@@ -36,6 +38,10 @@ class ServerBootstrap extends ConfigServer{
             new StockMovementsRouter().router,
             new ProductsCategoriesRouter().router,
         ];
+    }
+
+    passportUse(){
+        return [new LoginStrategy().use, new JwtStrategy().use];
     }
 
     async dbConnect(): Promise<DataSource | void>{
