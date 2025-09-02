@@ -7,11 +7,12 @@ const authService: AuthService = new AuthService();
 
 export class LoginStrategy {
     async validate(
-        username: string, 
-        password: string, 
+        username: string,
+        password: string,
         done: any
     ): Promise<UserEntity>{
         const user = await authService.validateUser(username, password);
+        console.log(user);
         if(!user){
             return done(null, false, {message: "Invalid email or password"});
         }

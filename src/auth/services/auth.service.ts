@@ -16,10 +16,12 @@ export class AuthService extends ConfigServer{
 
     public async validateUser(username: string, password: string): Promise<UserEntity | null>{
         const userByEmail = await this.userService.findUserByEmail(username);
-
+        console.log(userByEmail);
         if(userByEmail){
             const isMatch = await bcrypt.compare(password, userByEmail.password);
-            isMatch && userByEmail;
+            if(isMatch){
+                return userByEmail;
+            }
         }
 
         return null;
@@ -27,7 +29,7 @@ export class AuthService extends ConfigServer{
 
     //JWT_SECRET_KEY
     
-    sign(payload: jwt.JwtPayload, secret: any){
+    sing(payload: jwt.JwtPayload, secret: any){
         return this.jwtInstance.sign(payload, secret);
     }
 
@@ -49,7 +51,7 @@ export class AuthService extends ConfigServer{
         }
 
         return {
-            accessToken: this.sign(payload, this.getEnviroment("JWT_SECRET_KEY")),
+            accessToken: this.sing(payload, this.getEnviroment("JWT_SECRET_KEY")),
             user
         }
     }

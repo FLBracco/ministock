@@ -11,6 +11,7 @@ import { StockMovementsRouter } from "./stock/stock_movements.router";
 import { ProductsCategoriesRouter } from "./products/products_categories.router";
 import { LoginStrategy } from "./auth/strategies/login.strategy";
 import { JwtStrategy } from "./auth/strategies/jwt.strategy";
+import { AuthRouter } from "./auth/auth.router";
 
 class ServerBootstrap extends ConfigServer{
     public app: express.Application = express();
@@ -37,6 +38,7 @@ class ServerBootstrap extends ConfigServer{
             new CategoryRouter().router,
             new StockMovementsRouter().router,
             new ProductsCategoriesRouter().router,
+            new AuthRouter().router,
         ];
     }
 
