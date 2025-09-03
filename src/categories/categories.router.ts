@@ -20,6 +20,11 @@ export class CategoryRouter extends BaseRouter<CategoryController, CategoryMiddl
             (req, res, next) => [this.middleware.categoryValidator(req, res, next)],
             (req, res) => this.controller.updateCategory(req, res)
         );
-        this.router.delete('/category/:id', (req, res) => this.controller.deleteCategory(req, res));
+        this.router.delete(
+            '/category/:id',
+            this.middleware.passAuth("jwt"),
+            (req, res, next) => [this.middleware.checkAdminRole(req, res, next)], 
+            (req, res) => this.controller.deleteCategory(req, res)
+        );
     }
 }

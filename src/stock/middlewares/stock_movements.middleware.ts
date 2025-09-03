@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpResponse } from "../../shared/response/http.response";
 import { StockMovementDTO } from "../dto/stock_movements.dto";
 import { validate } from "class-validator";
+import { SharedMiddleware } from "../../shared/middlewares/shared.middleware";
 
-export class StocksMovementsMiddleware {
+export class StocksMovementsMiddleware extends SharedMiddleware{
     
-    constructor(private readonly httpResponse: HttpResponse = new HttpResponse()){}
+    constructor(){
+        super();
+    }
     stockMovementValidator(req: Request, res: Response, next: NextFunction){
         
         const {

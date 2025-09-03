@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ProductsDTO } from "../dto/products.dto";
 import { validate } from "class-validator";
-import { HttpResponse } from "../../shared/response/http.response";
 import { SharedMiddleware } from "../../shared/middlewares/shared.middleware";
 
 export class ProductsMiddleware extends SharedMiddleware{

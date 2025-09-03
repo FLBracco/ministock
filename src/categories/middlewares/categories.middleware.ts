@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { CategoryDTO } from "../dto/categories.dto";
 import { validate } from "class-validator";
-import { HttpResponse } from "../../shared/response/http.response";
+import { SharedMiddleware } from "../../shared/middlewares/shared.middleware";
 
-export class CategoryMiddleware {
+export class CategoryMiddleware extends SharedMiddleware{
     
-    constructor(private readonly httpResponse: HttpResponse = new HttpResponse()){}
+    constructor(){
+        super();
+    }
     categoryValidator(req: Request, res: Response, next: NextFunction){
 
         const {

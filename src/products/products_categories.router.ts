@@ -16,6 +16,10 @@ export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesContr
             (req, res) => this.controller.postCategoriesProducts(req, res)
         );
         this.router.put("/product-category/:id", (req, res) => this.controller.putProductCategory(req, res));
-        this.router.delete("/categories-products/:id", (req, res) => this.controller.deleteCategoriesProducts(req, res));
+        this.router.delete(
+            "/categories-products/:id",
+            this.middleware.passAuth("jwt"),
+            (req, res, next) => [this.middleware.checkAdminRole(req, res, next)],
+            (req, res) => this.controller.deleteCategoriesProducts(req, res));
     }
 }

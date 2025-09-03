@@ -6,7 +6,7 @@ export class StockMovementsRouter extends BaseRouter<StockMovementsController, S
     constructor(){
         super(StockMovementsController, StocksMovementsMiddleware);
     }
-
+    // Future add middlewares to only can read if you are authenticated and have role eployee or admin
     routes(): void {
         this.router.get('/stock-movements', (req, res)=> this.controller.getMovements(req, res));
         this.router.get('/stock-movements/:id', (req, res)=> this.controller.getMovementByID(req, res));
