@@ -2,9 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { ProductsDTO } from "../dto/products.dto";
 import { validate } from "class-validator";
 import { HttpResponse } from "../../shared/response/http.response";
+import { SharedMiddleware } from "../../shared/middlewares/shared.middleware";
 
-export class ProductsMiddleware {
-    constructor(private readonly httpResponse: HttpResponse = new HttpResponse()){}
+export class ProductsMiddleware extends SharedMiddleware{
+    constructor(){
+        super();
+    }
     productValidator(req: Request, res: Response, next: NextFunction){
         
         const {
