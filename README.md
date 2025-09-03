@@ -1,4 +1,5 @@
 # 🛒 MiniStock API
+
 API REST para la gestión de stock de productos en un minimarket.
 Permite administrar productos, categorías y movimientos de inventario
 
@@ -13,7 +14,8 @@ Permite administrar productos, categorías y movimientos de inventario
 - TypeScript
 - PostgreSQL
 - TypeORM
-- Zod
+- Class-validator
+- Passport
 - JWT
 - bcryptjs
 - dotenv
@@ -23,13 +25,17 @@ Permite administrar productos, categorías y movimientos de inventario
 ## 🔧 Instalación (en desarrollo)
 
 1. Cloná el repositorio:
+
 ```
 git clone https://github.com/FLBracco/ministock.git
 ```
+
 2. Instalá dependencias:
+
 ```
 pnpm install
 ```
+
 3. Configurá las variables de entorno en `.env` (ver `.env.example`).
 4. Ejecutá las migraciones y el servidor
 
@@ -37,17 +43,17 @@ pnpm install
 
 ## 📦 Funcionalidades previstas
 
-*  Registro y login de usuarios
+- Registro y login de usuarios
 
-* CRUD de productos
+- CRUD de productos
 
-* CRUD de categorías
+- CRUD de categorías
 
-* Registro de movimientos de stock
+- Registro de movimientos de stock
 
-* Autenticación y autorización con JWT
+- Autenticación y autorización con JWT
 
-* Validación de datos con Zod
+- Validación de datos con Class-validator
 
 ---
 
@@ -55,18 +61,43 @@ pnpm install
 
 ```
 src/
-├── controllers/
-├── services/
-├── entities/
-├── routes/
-├── middlewares/
-└── database/
-.env.example
-app.ts
-server.ts
+├── auth/
+├── categories/
+│ ├── controller/
+│ ├── dto/
+│ ├── entities/
+│ ├── middlewares/
+│ ├── services/
+│ └── categories.router.ts
+├── config/
+│ ├── base.dto.ts
+│ ├── base.entity.ts
+│ ├── base.service.ts
+│ ├── config.ts
+│ └── data.source.ts
+├── migrations/
+├── products/
+├── shared/
+├── stock/
+├── user/
+└── app.ts
+.env
+.gitignore
+package.json
+pnpm-lock.yaml
+README.md
+tsconfig.json
 ```
+
 ---
 
 ## 📅 Estado del proyecto
-Actualmente se encuentra en desarrollo activo.
-Se está trabajando en la configuración inicial del entorno y el modelado de la base de datos.
+
+- [x] Configuración inicial del entorno
+- [x] Modelado de la base de datos
+- [x] Implementación del módulo de categorías
+- [x] Implementación del módulo de usuarios
+- [x] Implementación del módulo de Productos
+- [x] Implementación del módulo de Stock_movements
+- [x] Autenticación con JWT
+- [ ] Asociar automáticamente los movimientos de stock con el usuario a partir del token
