@@ -40,11 +40,13 @@ export class StockMovementService extends BaseService<StockMovementEntity>{
             }
             product.stockQuantity -= newSM.quantity;
         }
+
         const productUpdate: ProductsDTO = {
             productName: product.productName,
             price: product.price,
             stockQuantity: product.stockQuantity
         }
+
         await this.productService.updateProduct(product.id, productUpdate);
         return (await this.execRepository).save(newSM);
     }

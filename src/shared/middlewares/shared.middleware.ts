@@ -11,6 +11,14 @@ export class SharedMiddleware {
         return passport.authenticate(type, {session: false});
     }
 
+    checkAnyRole(req: Request, res: Response, next: NextFunction){
+        const user = req.user as UserEntity;
+        if(user.role !== RoleType.EMPLOYED && user.role !== RoleType.ADMIN){
+            return this.httpResponse.Unauthorized(res, "Access denied. Unauthorized!");
+        }
+        return next();
+    }
+    
     checkAdminRole(req: Request, res: Response, next: NextFunction){
         const user = req.user as UserEntity;
         if(user.role !== RoleType.ADMIN){
