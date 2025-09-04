@@ -5,8 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn src/app.ts",
-    "build": "tsc",
-    "start": "node dist/app.js",
+    "start": "tsc && node dist/server.js",
     "start:dev": "tsc && concurrently \"tsc -w\" \"node --watch dist/app.js\"",
     "typeorm": "typeorm-ts-node-commonjs -d ./src/config/data.source.ts",
     "m:gen": "pnpm run typeorm migration:generate",

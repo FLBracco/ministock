@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { StockMovementService } from "../services/stock_movements.service";
 import { HttpResponse } from "../../shared/response/http.response";
-import { UserEntity } from "../../user/entities/user.entity";
 
 export class StockMovementsController {
     

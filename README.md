@@ -37,7 +37,43 @@ pnpm install
 ```
 
 3. Configurá las variables de entorno en `.env` (ver `.env.example`).
-4. Ejecutá las migraciones y el servidor
+
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=tu_usuario
+DB_PASSWORD=tu_password
+DB_NAME=nombre_de_la_base
+JWT_SECRET_KEY=tu_clave_secreta
+```
+
+## 🗄️ Levantar la Base de Datos
+
+Este proyecto utiliza PostgreSQL y TypeORM, por lo que no es necesario ejecutar scripts SQL manualmente. TypeORM se encarga de crear todas las tablas y relaciones automáticamente según las Entities definidas en el proyecto.
+
+1. Ejecutar migraciones:
+   Después de configurar las variables de entorno en .env, ejecutá las migraciones con:
+
+```
+pnpm m:run
+```
+
+2. Levantar la aplicación
+
+```
+pnpm start
+```
+
+La API ya podrá conectarse a la base de datos creada por las migraciones.
+
+3. Confirmar que la DB se creó correctamente
+   Podés conectarte a PostgreSQL y listar las tablas con:
+
+```
+/dt
+```
+
+Deberías ver todas las tablas: `users`, `products`, `categories`, `product_categories`, `stock_movements`, etc.
 
 ---
 
@@ -100,4 +136,4 @@ tsconfig.json
 - [x] Implementación del módulo de Productos
 - [x] Implementación del módulo de Stock_movements
 - [x] Autenticación con JWT
-- [ ] Asociar automáticamente los movimientos de stock con el usuario a partir del token
+- [x] Asociar automáticamente los movimientos de stock con el usuario a partir del token
