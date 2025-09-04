@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StockMovementService } from "../services/stock_movements.service";
 import { HttpResponse } from "../../shared/response/http.response";
+import { UserEntity } from "../../user/entities/user.entity";
 
 export class StockMovementsController {
     
@@ -36,7 +37,9 @@ export class StockMovementsController {
     
     async createMovement(req: Request, res: Response){
         try {
-            const data = await this.stockMovementService.createMovements(req.body);
+            const user = req.user as { sub: string, role: string};
+            const newSM = {...req.body, user: Number(user.sub)};
+            const data = await this.stockMovementService.createMovements(newSM);
             return this.httpResponse.Created(res, data);
         }catch(e: any){
             console.error(e);
