@@ -28,8 +28,10 @@ export class UserRouter extends BaseRouter<UserController, UserMiddleware>{
         this.router.put(
             '/user/:id',
             this.middleware.passAuth("jwt"),
-            (req, res, next) => [this.middleware.userValidator(req, res, next), this.middleware.checkAnyRole(req, res, next)],
-            (req, res)=> this.controller.updateUser(req, res));
+            (req, res, next) => [this.middleware.checkAnyRole(req, res, next)],
+            (req, res, next) => [this.middleware.userValidator(req, res, next)],
+            (req, res)=> this.controller.updateUser(req, res)
+        );
         this.router.delete(
             '/user/:id',
             this.middleware.passAuth("jwt"),

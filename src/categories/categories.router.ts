@@ -8,15 +8,26 @@ export class CategoryRouter extends BaseRouter<CategoryController, CategoryMiddl
     }
 
     routes(): void{
-        this.router.get('/categories', (req, res) => this.controller.getCategories(req, res));
-        this.router.get('/category/:id', (req, res) => this.controller.getCategoryByID(req, res));
+        this.router.get(
+            '/categories',
+            this.middleware.passAuth("jwt"),
+            (req, res) => this.controller.getCategories(req, res)
+        );
+        this.router.get(
+            '/category/:id',
+            this.middleware.passAuth("jwt"),
+            (req, res) => this.controller.getCategoryByID(req, res)
+        );
         this.router.post(
             '/categories',
+            this.middleware.passAuth("jwt"),
+            (req, res, next) => [this.middleware.checkAnyRole(req, res, next)],
             (req, res, next) => [this.middleware.categoryValidator(req, res, next)],
             (req, res) => this.controller.createCategory(req, res)
         );
         this.router.put(
             '/category/:id',
+            this.middleware.passAuth("jwt"),
             (req, res, next) => [this.middleware.categoryValidator(req, res, next)],
             (req, res) => this.controller.updateCategory(req, res)
         );
