@@ -8,14 +8,28 @@ export class ProductsCategoriesRouter extends BaseRouter<ProductsCategoriesContr
     }
 
     routes(): void {
-        this.router.get("/categories-products", (req, res) => this.controller.getProductsCategories(req, res));
-        this.router.get("/categories/:id/products", (req, res) => this.controller.getProductsByCategory(req, res));
+        this.router.get(
+            "/categories-products",
+            this.middleware.passAuth("jwt"),
+            (req, res) => this.controller.getProductsCategories(req, res)
+        );
+        this.router.get(
+            "/categories/:id/products",
+            this.middleware.passAuth("jwt"),
+            (req, res) => this.controller.getProductsByCategory(req, res)
+        );
         this.router.post(
             "/categories-products",
+            this.middleware.passAuth("jwt"),
             (req, res, next) => [this.middleware.prodCategoriesValidator(req, res, next)],
             (req, res) => this.controller.postCategoriesProducts(req, res)
         );
-        this.router.put("/product-category/:id", (req, res) => this.controller.putProductCategory(req, res));
+        this.router.put(
+            "/product-category/:id",
+            this.middleware.passAuth("jwt"),
+            (req, res, next) => [this.middleware.prodCategoriesValidator(req, res, next)],
+            (req, res) => this.controller.putProductCategory(req, res)
+        );
         this.router.delete(
             "/categories-products/:id",
             this.middleware.passAuth("jwt"),

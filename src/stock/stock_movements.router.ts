@@ -10,10 +10,12 @@ export class StockMovementsRouter extends BaseRouter<StockMovementsController, S
     routes(): void {
         this.router.get(
             '/stock-movements', 
+            this.middleware.passAuth("jwt"),
             (req, res)=> this.controller.getMovements(req, res)
         );
         this.router.get(
             '/stock-movements/:id', 
+            this.middleware.passAuth("jwt"),
             (req, res)=> this.controller.getMovementByID(req, res)
         );
         this.router.post(
